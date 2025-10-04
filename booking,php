@@ -1,0 +1,77 @@
+<?php
+// معالجة حجز الموعد
+if (isset($_POST['book_appointment'])) {
+    $day = $_POST['day'];
+    $time = $_POST['time'];
+    $doctor = isset($_GET['doctor']) ? $_GET['doctor'] : 'طبيب عام';
+    
+    // حفظ الحجز في الجلسة (يمكن حفظه في قاعدة بيانات)
+    $_SESSION['appointment'] = [
+        'doctor' => $doctor,
+        'day' => $day,
+        'time' => $time,
+        'timestamp' => date('Y-m-d H:i:s')
+    ];
+    
+    echo '<script>alert("تم حجز الموعد بنجاح!");</script>';
+}
+?>
+
+<!-- شاشة حجز الموعد -->
+<div class="screen active">
+    <h2>الأوقات والأيام المتاحة</h2>
+    
+    <?php if (isset($_GET['doctor'])): ?>
+        <p>طبيب: <strong><?php echo htmlspecialchars($_GET['doctor']); ?></strong></p>
+    <?php endif; ?>
+    
+    <form method="POST" action="">
+        <div class="availability-section">
+            <div class="section-title">الأيام المتاحة</div>
+            <div class="days-list">
+                <?php
+                $days = ['الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت', 'الأحد'];
+                foreach ($days as $day) {
+                    echo '<label class="day-item">';
+                    echo '<input type="radio" name="day" value="' . $day . '" required>';
+                    echo $day;
+                    echo '</label>';
+                }
+                ?>
+            </div>
+        </div>
+        
+        <div class="availability-section">
+            <div class="section-title">الأوقات المتاحة</div>
+            <div class="times-list">
+                <?php
+                $times = ['9-11', '12-1', '2-3', '4-5', '6-7'];
+                foreach ($times as $time) {
+                    echo '<label class="time-item">';
+                    echo '<input type="radio" name="time" value="' . $time . '" required>';
+                    echo $time;
+                    echo '</label>';
+                }
+                ?>
+            </div>
+        </div>
+        
+        <div class="booking-actions">
+            <button type="submit" name="book_appointment" class="action-button">حجز الموعد</button>
+            <button type="button" class="action-button" onclick="addBooking()">إضافة حجز</button>
+            <button type="button" class="action-button" onclick="deleteBooking()">حذف الحجز</button>
+        </div>
+    </form>
+</div>
+
+<script>
+function addBooking() {
+    alert("سيتم فتح نموذج لإضافة حجز جديد");
+}
+
+function deleteBooking() {
+    if (confirm("هل تريد حذف الحجز الحالي؟")) {
+        window.location.href = 'index.php?screen=booking&action=delete';
+    }
+}
+</script>
