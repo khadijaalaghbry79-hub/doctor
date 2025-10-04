@@ -1,0 +1,37 @@
+.booking-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    gap: 10px;
+}
+
+.action-button {
+    background-color: #2a7de1;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    flex: 1;
+}
+
+/* شاشة الرئيسية */
+.home-options {
+    margin-top: 20px;
+}
+
+.home-item {
+    background-color: #f0f8ff;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border-right: 4px solid #2a7de1;
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+    color: #333;
+}
+
+.home-item:hover {
+    background-color: #e0f0ff;
+}
